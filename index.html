@@ -18,6 +18,16 @@
 			display: none;
 			margin: 1em;
 		}
+        #map {
+  height: 100%;
+   
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 	</style>
 
 </head>
@@ -72,37 +82,45 @@
     
     
   <div class="content" id="map">
-    mappppp
-      <script>   
-    // The following example creates a marker, using a DROP
-// animation. Clicking on the marker will toggle the animation between a BOUNCE
-// animation and no animation.
-
-var marker;
-
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+    <div id="map"></div>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&callback=initMap"> </script>
+ 
+    <script>
+    var marker;
+    
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
+    center: {lat: 41.88425,lng: -87.63245}
     center: {lat: 41.8781, lng: -87.6298}
-  });
-
-  marker = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: {lat: 41.8781, lng: -87.6298}
-  });
-  marker.addListener('click', toggleBounce);
-}
-
-function toggleBounce() {
+      });
+      marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {lat: 41.88425,lng: -87.63245}
+        position: {lat: 41.8781, lng: -87.6298}
+      });
+      marker.addListener('click', toggleBounce);
+    }
+        function toggleBounce() {
   if (marker.getAnimation() !== null) {
     marker.setAnimation(null);
-  } else {
+  } 
+            else {
     marker.setAnimation(google.maps.Animation.BOUNCE);
   }
+  }
+        function drop() {
+  for (var i =0; i < markerArray.length; i++) {
+    setTimeout(function() {
+      addMarkerMethod();
+    }, i * 200);
+  }
 }
-    </script> 
+    </script>      
   </div>
     
     
@@ -115,9 +133,7 @@ function toggleBounce() {
   </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&callback=initMap">
-</script>
+
 
   
     <script>
@@ -181,10 +197,41 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzd
 
     });
         
+       //when hit the submit button
+    $("#submit").on("click", function(e) {
+      $.get(getQuery(), function(response) {
+        $.each(response, function(i,v) {
+           $("body").append(v.day + " " + v.date + " " + v.park + " " + v.park_phone + v.title + " " + v.cc + " " + v.rating + " " + v.park_address + " " + v.location + "<br>");
+        });
+      });
+    });
+         let keysAndLabelsIWantToDisplay = 
+      {
+        "day": " day",
+        "date": " Date ", 
+        "park" : " Park ", 
+        "park_phone": " Park phone Number", 
+        "title": " Title ",
+        "cc" : " CC ", 
+        "rating": " Rating ", 
+        "park_address":" Park address", 
+        "location": " Location"
+      };
+         
+         for (let Day in Data) {
+        let Data = Data[Day];
         
+        // loop your display object
+        for (let Day in keysAndLabelsIWantToDisplay) {
+          // get the relevant label and value
+          let displayLabel = keysAndLabelsIWantToDisplay[Day];
+          let displayValue = Data[Day];
+          // output
+          console.log (displayLabel, ": ",displayValue);
+        }
+      }  
         
   </script>
-    
     
     
 
