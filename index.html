@@ -1,13 +1,16 @@
+ 
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>3 screen app</title>
+	<title>Chicago Park Movie</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	 crossorigin="anonymous">
-       <script src="data.json"></script>
+    <script src="data.json"></script>
 
 	<style>
 		.content {
@@ -19,10 +22,9 @@
 </head>
 
 <body>
-   
 	<!-- navigation bar -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Menu</a>
+		<a class="navbar-brand" href="#">Navbar</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,22 +41,21 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#about">About</a>
-          
       </li>
     </ul>
   </div>
   </nav>
-      
+
   <!-- the content divs -->
   <div class="content" id="home">
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <h1>Chicago Movie Park </h1>
-     <img class ="rounded-circle img-fluid" src = "https://urbanmatter.com/chicago/wp-content/uploads/2015/04/Chicago-Architecture.jpg" alt = "" >
-         
-</div>
+    <h1>Chicago Movie Park </h1>
+     <img class ="rounded-circle img-fluid" src = "https://urbanmatter.com/chicago/wp-content/uploads/2015/04/Chicago-Architecture.jpg" alt = "" >   
   </div>
+    
+    
+    
   <div class="content" id="info">
-    <h5>Search by park:</h5>
+   <h5>Search by park:</h5>
         <input id="parkInput" type="text" placeholder="Enter Park" value="">
 
         <h5>Search by movie:</h5>
@@ -65,122 +66,139 @@
         <br>
         <br>
         <button id="Submit">Submit</button>
+  </div>
     
-  </div>
- 
-  
+    
+    
   <div class="content" id="map">
-    <script>
-      var marker;
+     <script>
+      function initMap() {
+  var myLatLng = {lat: -25.363, lng: 131.044};
 
-function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
-    center: {lat: 41.8781, lng: -87.6298}
+    zoom: 4,
+    center: myLatLng
   });
 
-  marker = new google.maps.Marker({
+  var marker = new google.maps.Marker({
+    position: myLatLng,
     map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: {lat: 41.8781, lng: -87.6298}
+    title: 'Hello World!'
   });
-  marker.addListener('click', toggleBounce);
 }
+//      var marker;
+// function initMap() {
+//   var map = new google.maps.Map(document.getElementById('map'), {
+//     zoom: 13,
+//     center: {lat: 41.8781, lng: -87.6298}
+//   });
 
-function toggleBounce() {
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
-}
-      
+//   marker = new google.maps.Marker({
+//     map: map,
+//     draggable: true,
+//     animation: google.maps.Animation.DROP,
+//     position: {lat: 41.8781, lng: -87.6298}
+//   });
+//   marker.addListener('click', toggleBounce);
+// }
+
+// function toggleBounce() {
+//   if (marker.getAnimation() !== null) {
+//     marker.setAnimation(null);
+//   } else {
+//     marker.setAnimation(google.maps.Animation.BOUNCE);
+//   }
+// }   
+ 
     </script>
-
   </div>
-        
+    
+    
   <div class="content" id="about">
-      <h2>About Me</h2>
+     <h2>About Me</h2>
       <h5> my name is Nawal Khan. I am student at UIC studying Computer Science. This is my fist Progressive Web App. </h5>
         <div class = "Photo">
             <img class ="rounded-circle img-fluid" src = "IMG_1052.jpg" alt = "" >
         </div>
   </div>
-        
-<h2>  Search for Movies</h2>    
-   <div class="container">
-              <label for="foodType" class="col-3 col-form-label"></label>
-              <div class="col">
-              <input type="text" class="form-control" id="MovieInput" placeholder="">
-              </div>
-          </div>
-    <div class="container">          
-      <button type="submit" id = "searchBtn" class="btn btn-info btn-block">Find</button>
-    </div>
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
       
- 
-  <script>
-//         //BUILD URL QUERY FROM USER INPUT:
-//         function getUrlQuery() {
-//             var endpoint = "https://data.cityofchicago.org/resource/7piw-z6r6.json";
-//             //Save textBox input
-//             var enteredPark = $("#parkInput").val();
-//             var enteredMovie = $("#movieInput").val();
-//             var enteredDay = $("#dayInput").val();
-//             var parkSoQL = "";
-//             var movieSoQL = "";
-//             var daySoQL = "";
-//             var firstQMEntered = false; //Track of whether a ? has already been added. If so, & will be added from there.
-//             //set park SoQL
-//             if(enteredPark != "") {
-//                 parkSoQL = "?park=" + enteredPark; //use ? (since this is the first entry)
-//                 firstQMEntered = true;
-//             }
-//             //set movie SoQL
-//             if(enteredMovie != "" && firstQMEntered) {
-//                 movieSoQL = "&title=" + enteredMovie; //use &
-//             } else if(enteredMovie != "" && !firstQMEntered) {
-//                 movieSoQL = "?title=" + enteredMovie; //use ?
-//                 firstQMEntered = true;
-//             }
-//             //set day SoQL
-//             if(enteredDay != "" && firstQMEntered) {
-//                 daySoQL = "&day=" + enteredDay; //use &
-//             } else if(enteredDay != "" && !firstQMEntered) {
-//                 daySoQL = "?day=" + enteredDay; //use ?
-//                 firstQMEntered = true; //for consistentcy
-//             }
-//             urlQuery = endpoint + parkSoQL + movieSoQL + daySoQL; //build url
-//             console.log("enteredPark: " + enteredPark);
-//             console.log("enteredMovie: " + enteredMovie);
-//             console.log("enteredDay: " + enteredDay);
-//             console.log("parkSoQL: " + parkSoQL);
-//             console.log("movieSoQL: " + movieSoQL);
-//             console.log("daySoQL: " + daySoQL);
-//             console.log("urlQuery: " + urlQuery);
-//             console.log("");
-//             return urlQuery;
+    <script>
+
+    //         //BUILD URL QUERY FROM USER INPUT:
+        function getUrlQuery() {
+             var endpoint = "https://data.cityofchicago.org/resource/7piw-z6r6.json";
+             //Save textBox input
+            var enteredPark = $("#parkInput").val();
+            var enteredMovie = $("#movieInput").val();
+            var enteredDay = $("#dayInput").val();
+            var parkSoQL = "";
+            var movieSoQL = "";
+            var daySoQL = "";
+            var firstQMEntered = false; //Track of whether a ? has already been added. If so, & will be added from there.
+            //set park SoQL
+            if(enteredPark != "") {
+                parkSoQL = "?park=" + enteredPark; //use ? (since this is the first entry)
+                firstQMEntered = true;
+            }
+            //set movie SoQL
+            if(enteredMovie != "" && firstQMEntered) {
+                movieSoQL = "&title=" + enteredMovie; //use &
+            } else if(enteredMovie != "" && !firstQMEntered) {
+                movieSoQL = "?title=" + enteredMovie; //use ?
+                firstQMEntered = true;
+            }
+            //set day SoQL
+            if(enteredDay != "" && firstQMEntered) {
+                daySoQL = "&day=" + enteredDay; //use &
+            } else if(enteredDay != "" && !firstQMEntered) {
+                daySoQL = "?day=" + enteredDay; //use ?
+                firstQMEntered = true; //for consistentcy
+            }
+            urlQuery = endpoint + parkSoQL + movieSoQL + daySoQL; //build url
+            console.log("enteredPark: " + enteredPark);
+            console.log("enteredMovie: " + enteredMovie);
+            console.log("enteredDay: " + enteredDay);
+            console.log("parkSoQL: " + parkSoQL);
+            console.log("movieSoQL: " + movieSoQL);
+            console.log("daySoQL: " + daySoQL);
+            console.log("urlQuery: " + urlQuery);
+            console.log("");
+            return urlQuery;
           
-//         } 
+        } 
+  
   
     $(document).ready(function() {
+
       function hideScreens() {
         $(".content").hide();
       }
+
       $(".nav-link").on("click", function(){
         hideScreens();
         var target = $(this).attr("href");
         $(target).show();
         $(target).load("page_content/_" + target.replace("#","") + ".html");
       });
-  }
-  
+
+    });
+        
+        
+        
   </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa4dMSOASs_iLQnhrPoQ8EZgj2Im_pZ7o&callback=initMap" async defer></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa4dMSOASs_iLQnhrPoQ8EZgj2Im_pZ7o&callback=initMap" async defer></script>
+
 
   </body>
 </html>
+
+
+<!--  -->
+
+
+
